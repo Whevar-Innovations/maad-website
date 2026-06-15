@@ -1,73 +1,60 @@
-# React + TypeScript + Vite
+# MAAD McCann Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A premium, highly animated web experience for MAAD McCann Uganda, built with React 19, GSAP, and Lenis.
 
-Currently, two official plugins are available:
+## 🚀 Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Framework:** [React 19](https://react.dev/)
+- **Build Tool:** [Vite 8](https://vite.dev/)
+- **Animations:** [GSAP](https://greensock.com/gsap/) with the `@gsap/react` hook.
+- **Smooth Scrolling:** [Lenis](https://lenis.darkroom.engineering/) for kinetic scrolling.
+- **Styling:** Vanilla CSS with CSS Modules.
+- **Language:** TypeScript.
 
-## React Compiler
+## 📁 Project Structure
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- `src/components/Layout`: Core wrapper managing GSAP/Lenis initialization and global UI (sidebars).
+- `src/components/Sections`: Modular page sections (Hero, Value, Services, Footer).
+- `src/components/Header`: Fixed navigation with interactive hamburger and contact triggers.
+- `src/components/Sidebar`: Animated slide-out menus for navigation and lead generation.
+- `src/hooks/useSmoothScroll.ts`: Centralized Lenis initialization logic.
 
-## Expanding the ESLint configuration
+## 🎨 Key Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Split-Screen Layout:** High-impact visual hierarchy matching the MAAD branding.
+- **Interactive Sidebars:** GSAP-powered navigation drawers for an immersive experience.
+- **Scroll-Triggered Reveals:** Dynamic content loading using GSAP `ScrollTrigger`.
+- **Kinetic Smooth Scroll:** Fluid user experience powered by Lenis.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Development
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Start Development Server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Linting
+
+```bash
+npm run lint
+```
+
+## 📜 Development Conventions
+
+1. **Animations:** Always use the `useGSAP` hook from `@gsap/react` for better performance and lifecycle management.
+2. **Scoping:** Use the `scope` property in `useGSAP` to target elements within component refs.
+3. **Styling:** Prefer CSS Modules for component-specific styles and global CSS variables in `src/index.css` for design tokens.
+4. **Icons:** Use the SVG sprite system in `public/icons.svg` or high-quality vector paths directly in components.

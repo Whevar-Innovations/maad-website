@@ -1,0 +1,19 @@
+.hero {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background-color: var(--color-black);
+}
+
+.logoWrapper {
+  width: 288px;
+  height: auto;
+}
+
+.logo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}

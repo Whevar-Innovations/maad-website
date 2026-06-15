@@ -1,25 +1,36 @@
 # MAAD Website
 
-This project is a modern web application built with **React 19**, **TypeScript**, and **Vite 8**. It serves as a foundation for the MAAD website.
+This project is a modern web application built with **React 19**, **TypeScript**, **Vite 8**, **GSAP**, and **Lenis**. It features a premium, animated user experience based on the MAAD McCann design.
 
 ## Project Overview
 
 - **Framework:** [React 19](https://react.dev/)
 - **Build Tool:** [Vite 8](https://vite.dev/)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
-- **Styling:** Vanilla CSS (located in `src/App.css` and `src/index.css`)
-- **Linting:** [ESLint](https://eslint.org/) with TypeScript and React Hooks support.
+- **Animations:** [GSAP](https://greensock.com/gsap/) with ScrollTrigger for smooth, scroll-driven transitions.
+- **Scrolling:** [Lenis](https://lenis.darkroom.engineering/) for high-performance kinetic smooth scrolling.
+- **Styling:** Vanilla CSS with CSS Modules for scoped, performant styling.
 
 ## Project Structure
 
 - `src/`: Main source directory.
-  - `main.tsx`: Entry point of the application.
-  - `App.tsx`: Main application component.
-  - `assets/`: Static assets like images and logos.
-- `public/`: Public assets served directly (e.g., `favicon.svg`, `icons.svg`).
+  - `components/`: Modular UI components.
+    - `Layout/`: Main application wrapper with scroll initialization.
+    - `Header/`: Fixed navigation bar.
+    - `Sidebar/`: Animated slide-out menus (Left & Right).
+    - `Sections/`: Page content blocks (Hero, Value, Services, Footer).
+  - `hooks/`: Custom React hooks (e.g., `useSmoothScroll`).
+  - `assets/`: Static assets like the MAAD logo.
+- `public/`: Public assets served directly.
 - `index.html`: Main HTML template.
-- `vite.config.ts`: Vite configuration.
-- `tsconfig.json`: TypeScript configuration.
+
+## Development Conventions
+
+- **Type Safety:** Always use TypeScript for new files and components.
+- **Styling:** Use CSS Modules (`*.module.css`) for component-specific styles to avoid global namespace pollution.
+- **Animations:** Prefer GSAP for complex transitions and ScrollTrigger for scroll-linked animations.
+- **Smooth Scroll:** Lenis is initialized in the `Layout` component via the `useSmoothScroll` hook.
+- **Commits:** All commits must follow the convention defined in [COMMIT_STYLE.md](./COMMIT_STYLE.md).
 
 ## Getting Started
 
@@ -57,18 +68,3 @@ Run ESLint to check for code quality:
 ```bash
 npm run lint
 ```
-
-### Preview
-
-Preview the production build locally:
-
-```bash
-npm run preview
-```
-
-## Development Conventions
-
-- **Type Safety:** Always use TypeScript for new files and components.
-- **Styling:** Prefer keeping styles in `App.css` or component-specific CSS files.
-- **Icons:** The project uses an SVG sprite system. Icons are defined in `public/icons.svg` and used via the `<use>` tag in components.
-- **Component Structure:** Follow the functional component pattern with React Hooks.
