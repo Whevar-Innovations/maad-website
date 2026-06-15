@@ -2,7 +2,7 @@ import { useRef } from 'react';
 import type { FC } from 'react';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
-import logo from '../../assets/logo.png';
+import logo from '/assets/img/MAAD-LOGO-02.png';
 import styles from './Hero.module.css';
 
 const Hero: FC = () => {
