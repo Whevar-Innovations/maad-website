@@ -6,16 +6,21 @@ const Footer: FC = () => {
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.bgLogo}>
-        {/* Large stylized logo could go here as an SVG or image */}
-        <div className={styles.logoText}>MAAD MCCANN</div>
-      </div>
+      <div className={styles.bgLogo}></div>
       
       <div className="container">
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
             © {currentYear} MAADMCCANN. All Rights Reserved.
           </p>
+          
+          <div className={styles.socials}>
+            <a href="#tiktok" aria-label="TikTok">TikTok</a>
+            <a href="#facebook" aria-label="Facebook">Facebook</a>
+            <a href="#instagram" aria-label="Instagram">Instagram</a>
+            <a href="#x" aria-label="X">X</a>
+            <a href="#linkedin" aria-label="LinkedIn">LinkedIn</a>
+          </div>
           
           <nav className={styles.legalLinks}>
             <a href="#privacy">Privacy Policy</a>

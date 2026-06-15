@@ -11,7 +11,7 @@
   pointer-events: none;
 }
 
-.header button {
+.header > * {
   pointer-events: auto;
 }
 
@@ -20,6 +20,10 @@
   flex-direction: column;
   gap: 4px;
   width: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
 }
 
 .line {
@@ -28,6 +32,28 @@
   height: 2px;
   background-color: var(--color-white);
   transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.logo {
+  height: 64px;
+}
+
+.logo img {
+  height: 100%;
+  display: block;
+}
+
+.rightSide {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.shortcut {
+  color: var(--color-white);
+  font-family: var(--font-book);
+  font-size: 14px;
+  opacity: 0.6;
 }
 
 .contactBtn {
@@ -40,6 +66,7 @@
   font-size: 14px;
   text-transform: uppercase;
   transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
 }
 
 .contactBtn:hover {
@@ -50,5 +77,9 @@
 @media (max-width: 768px) {
   .header {
     padding: 20px 30px;
+  }
+
+  .shortcut {
+    display: none;
   }
 }

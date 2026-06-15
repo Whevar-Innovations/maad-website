@@ -16,9 +16,15 @@ const Header: FC<HeaderProps> = ({ onMenuClick, onContactClick }) => {
         <span className={styles.line}></span>
       </button>
 
-      <button className={styles.contactBtn} onClick={onContactClick}>
-        Contact
-      </button>
+      <div className={styles.logo}>
+        <img src="/assets/img/MAAD-LOGO-02.png" alt="MAAD McCann Logo" />
+      </div>
+
+      <div className={styles.rightSide}>
+        <button className={styles.shortcut} onClick={onContactClick}>
+          Press C for ?
+        </button>
+      </div>
     </header>
   );
 };
