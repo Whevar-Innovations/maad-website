@@ -10,6 +10,24 @@ const Value: FC = () => {
   const textRef = useRef<HTMLParagraphElement>(null);
 
   useGSAP(() => {
+    // Section entrance
+    if (container.current) {
+      gsap.fromTo(container.current, 
+        { yPercent: 20, opacity: 0.8 },
+        {
+          scrollTrigger: {
+            trigger: container.current,
+            start: 'top bottom',
+            end: 'top 20%',
+            scrub: true,
+          },
+          yPercent: 0,
+          opacity: 1,
+          ease: 'none'
+        }
+      );
+    }
+
     if (titleRef.current && textRef.current) {
       gsap.fromTo(
         titleRef.current,

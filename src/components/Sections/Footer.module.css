@@ -3,6 +3,7 @@
   background-color: var(--color-black);
   overflow: hidden;
   position: relative;
+  z-index: 5;
 }
 
 .bgLogo {

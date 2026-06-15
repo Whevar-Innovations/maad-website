@@ -79,6 +79,24 @@ const Services: FC = () => {
   const [activeIndex, setActiveIndex] = useState(0);
 
   useGSAP(() => {
+    // Section entrance
+    if (containerRef.current) {
+      gsap.fromTo(containerRef.current,
+        { yPercent: 10, opacity: 0.9 },
+        {
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: 'top bottom',
+            end: 'top 20%',
+            scrub: true,
+          },
+          yPercent: 0,
+          opacity: 1,
+          ease: 'none'
+        }
+      );
+    }
+
     const mm = gsap.matchMedia();
 
     mm.add("(min-width: 1024px)", () => {

@@ -1,10 +1,13 @@
 .hero {
+  position: relative;
+  z-index: 1;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   background-color: var(--color-black);
+  will-change: transform, opacity;
 }
 
 .logoWrapper {
