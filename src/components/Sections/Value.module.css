@@ -1,4 +1,6 @@
 .valueSection {
+  position: relative;
+  z-index: 3;
   padding: 150px 0;
   background-color: var(--color-black);
   text-align: center;

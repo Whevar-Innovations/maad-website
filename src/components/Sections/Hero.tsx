@@ -10,6 +10,7 @@ const Hero: FC = () => {
   const logoRef = useRef<HTMLImageElement>(null);
 
   useGSAP(() => {
+    // Logo entrance and exit
     if (logoRef.current) {
       gsap.fromTo(
         logoRef.current,
@@ -25,13 +26,27 @@ const Hero: FC = () => {
 
       gsap.to(logoRef.current, {
         scrollTrigger: {
-          trigger: logoRef.current,
-          start: 'top 20%',
+          trigger: container.current,
+          start: 'top top',
           end: 'bottom top',
           scrub: true,
         },
         y: -100,
         opacity: 0,
+      });
+    }
+
+    // Section scale and fade exit
+    if (container.current) {
+      gsap.to(container.current, {
+        scrollTrigger: {
+          trigger: container.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+        scale: 0.9,
+        opacity: 0.5,
       });
     }
   }, { scope: container });
