@@ -151,6 +151,8 @@
     border-radius: 14px;
     transform: none !important;
     opacity: 1 !important;
+    visibility: visible;
+    clip-path: none;
   }
 
   .headline {
