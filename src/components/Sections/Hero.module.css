@@ -2,56 +2,11 @@
    Hero Section — Cinematic Agency Experience
    ────────────────────────────────────────────── */
 
-/* ──────────────────────────────────────────────
-   Hero Section — Cinematic Agency Experience
-   ────────────────────────────────────────────── */
-
 .hero {
   position: relative;
   z-index: 2;
-  z-index: 2;
   height: 100vh;
   background-color: var(--color-black);
-  overflow: hidden;
-}
-
-.heroInner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-/* ── Headline ─────────────────────────────────── */
-
-.headlineWrapper {
-  position: absolute;
-  top: 50%;
-  left: 60px;
-  transform: translateY(-50%);
-  z-index: 3;
-  max-width: 700px;
-  will-change: transform;
-  pointer-events: none;
-}
-
-.headline {
-  font-family: var(--font-heavy);
-  font-weight: 900;
-  font-size: clamp(42px, 6.5vw, 96px);
-  line-height: 1.12;
-  color: var(--color-white);
-  text-transform: uppercase;
-  letter-spacing: -2px;
-  margin: 0;
-  will-change: transform, opacity, letter-spacing;
-}
-
-/* ── Character-level reveal ───────────────────── */
-
-.char {
-  display: inline-block;
-  opacity: 0;
-  transform: translateY(14px);
   overflow: hidden;
 }
 
@@ -125,39 +80,8 @@
   clip-path: inset(0 0 0 100%);
   will-change: transform, clip-path, border-radius;
   transform-origin: center center;
-.space {
-  width: 0.28em;
 }
 
-.red {
-  color: var(--color-red);
-  font-style: italic;
-}
-
-/* Outer Wrapper (layout anchor, stays static, does NOT clip) */
-.videoWrapper {
-  position: absolute;
-  top: 50%;
-  right: 60px;
-  transform: translateY(-50%);
-  width: 55%;
-  height: 520px;
-  z-index: 1;
-}
-
-/* Inner Container (handles Stage 1 sweep and Stage 2 scale/translate zoom) */
-.videoContainer {
-  width: 100%;
-  height: 100%;
-  border-radius: 20px;
-  overflow: hidden;
-  visibility: hidden;
-  clip-path: inset(0 0 0 100%);
-  will-change: transform, clip-path, border-radius;
-  transform-origin: center center;
-}
-
-.video {
 .video {
   width: 100%;
   height: 100%;
@@ -166,16 +90,6 @@
   transform-origin: center center;
   will-change: transform;
 }
-
-/* .whiteOverlay {
-  position: absolute;
-  inset: 0;
-  background-color: var(--color-white);
-  z-index: 2; 
-  opacity: 0.05;
-  pointer-events: none;
-  will-change: opacity;
-} */
 
 /* ── MOBILE / TABLET ──────────────────────────── */
 
@@ -208,6 +122,8 @@
   .headline {
     transform: none !important;
     opacity: 1 !important;
+    font-size: clamp(36px, 10vw, 56px);
+    letter-spacing: -1px;
   }
 
   .videoWrapper {
@@ -229,11 +145,6 @@
     opacity: 1 !important;
     visibility: visible;
     clip-path: none;
-  }
-
-  .headline {
-    font-size: clamp(36px, 10vw, 56px);
-    letter-spacing: -1px;
   }
 }
 

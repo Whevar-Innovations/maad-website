@@ -113,19 +113,7 @@ test.describe('MAAD Website Full Flow E2E Tests', () => {
     const timelineNum = page.locator('[class*="timelineNumWrapper"]').nth(3);
     await expect(timelineNum).toBeVisible();
     await timelineNum.click();
-    
-    // Smooth scroll matching timeline index 3, with 15px safety buffer
-    await page.evaluate(({ top }) => {
-      const scrollableDistance = 11 * window.innerHeight;
-      const scrollProgress = 3 / 12 + (3 / 8) * (8 / 12);
-      const targetScroll = top + scrollProgress * scrollableDistance + 15;
-      if ((window as any).lenis) {
-        (window as any).lenis.scrollTo(targetScroll);
-      } else {
-        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-      }
-    }, { top: servicesTop });
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(3500);
 
     // Verify active index updated to 3 (chapter 4)
     const activeTimelineNum = page.locator('[class*="timelineNumWrapper"][class*="active"] [class*="timelineNum"]').first();
@@ -163,19 +151,7 @@ test.describe('MAAD Website Full Flow E2E Tests', () => {
     // Scroll to the end snap index (SBCC 09)
     const lastTimelineNum = page.locator('[class*="timelineNumWrapper"]').nth(8);
     await lastTimelineNum.click();
-    
-    // Smooth scroll matching SBCC snap position (index 8)
-    await page.evaluate(({ top }) => {
-      const scrollableDistance = 11 * window.innerHeight;
-      const scrollProgress = 3 / 12 + (8 / 8) * (8 / 12);
-      const targetScroll = top + scrollProgress * scrollableDistance + 15;
-      if ((window as any).lenis) {
-        (window as any).lenis.scrollTo(targetScroll);
-      } else {
-        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
-      }
-    }, { top: servicesTop });
-    await page.waitForTimeout(3000);
+    await page.waitForTimeout(3500);
 
     // Verify SBCC is visible
     const activeTitle = page.locator('[class*="titleItem"][class*="active"]').first();
