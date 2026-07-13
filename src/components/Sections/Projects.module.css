@@ -1,29 +1,48 @@
+/* ──────────────────────────────────────────────
+   Projects Section
+   ────────────────────────────────────────────── */
+
 .projectsSection {
-  padding: 100px 0 140px;
-  background-color: var(--color-black);
   position: relative;
+  z-index: 3;
+  padding: 0 0 140px;
+  background-color: var(--color-black);
   overflow: hidden;
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Trusted By Client Logos Slider Row */
+/* ── Cinematic transition overlay ────────────── */
+
+.transitionOverlay {
+  position: absolute;
+  inset: 0;
+  background: var(--color-black);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.innerContent {
+  position: relative;
+  z-index: 11;
+}
+
+/* ── Trusted By Client Logos ─────────────────── */
+
 .clientSlider {
   width: 100%;
   display: flex;
   align-items: center;
   gap: 40px;
-  padding: 24px 60px;
+  padding: 28px 60px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   margin-bottom: 80px;
   overflow: hidden;
   position: relative;
-  background-color: rgba(255, 255, 255, 0.01);
 }
 
 .trustedLabel {
   font-family: var(--font-heavy);
-  font-size: 14px;
-  letter-spacing: 1.5px;
+  font-size: 13px;
+  letter-spacing: 2px;
   color: rgba(255, 255, 255, 0.4);
   white-space: nowrap;
   flex-shrink: 0;
@@ -34,7 +53,7 @@
   align-items: center;
   gap: 80px;
   width: max-content;
-  animation: scrollLogos 120s linear infinite;
+  animation: scrollLogos 50s linear infinite;
 }
 
 .marqueeItem {
@@ -43,6 +62,7 @@
   justify-content: center;
   align-items: center;
   width: 100px;
+  height: 40px;
 }
 
 .clientLogo {
@@ -50,13 +70,13 @@
   max-height: 100%;
   object-fit: contain;
   filter: brightness(0) invert(1);
-  opacity: 0.7; /* Clearer visibility matching screenshot */
+  opacity: 0.7;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .clientLogo:hover {
   opacity: 1;
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 @keyframes scrollLogos {
@@ -68,7 +88,8 @@
   }
 }
 
-/* Content Layout */
+/* ── Content Layout ──────────────────────────── */
+
 .container {
   display: flex;
   gap: 80px;
@@ -88,19 +109,19 @@
 
 .tagline {
   font-family: var(--font-heavy);
-  font-size: 16px;
+  font-size: 15px;
   color: var(--color-red);
   margin-bottom: 20px;
-  letter-spacing: 2px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
 }
 
 .title {
   font-family: var(--font-heavy);
   font-size: clamp(36px, 4.5vw, 64px);
-  line-height: 1.15;
+  line-height: 1.12;
   color: var(--color-white);
-  margin-bottom: 30px;
+  margin-bottom: 28px;
   letter-spacing: -1px;
 }
 
@@ -110,39 +131,41 @@
 
 .description {
   font-family: var(--font-book);
+  font-weight: 400;
   font-size: 16px;
-  line-height: 1.6;
-  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.55);
   margin-bottom: 40px;
   max-width: 280px;
 }
 
-/* Red "VIEW ALL WORK" Circle Arrow Button */
+/* ── VIEW ALL WORK ───────────────────────────── */
+
 .viewAllBtn {
   display: inline-flex;
   align-items: center;
   gap: 16px;
   font-family: var(--font-heavy);
-  font-size: 14px;
-  letter-spacing: 1px;
+  font-size: 13px;
+  letter-spacing: 1.5px;
   color: var(--color-white);
   text-transform: uppercase;
   transition: opacity 0.3s ease;
 }
 
 .viewAllBtn:hover {
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
 .btnArrowWrapper {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background-color: var(--color-red);
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .viewAllBtn:hover .btnArrowWrapper {
@@ -150,12 +173,13 @@
 }
 
 .btnArrow {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   color: var(--color-white);
 }
 
-/* Cards Carousel */
+/* ── Cards Carousel ──────────────────────────── */
+
 .sliderWrapper {
   flex: 1;
   position: relative;
@@ -165,7 +189,7 @@
 
 .cardsContainer {
   display: flex;
-  gap: 30px;
+  gap: 28px;
   overflow-x: auto;
   padding: 10px 0 20px;
   scrollbar-width: none;
@@ -177,33 +201,31 @@
   display: none;
 }
 
-/* Cards Styling */
+/* ── Card Styling ────────────────────────────── */
+
 .projectCard {
-  flex: 0 0 345px;
-  height: 505px;
-  border-radius: 24px;
+  flex: 0 0 340px;
+  height: 500px;
+  border-radius: 22px;
   overflow: hidden;
   position: relative;
   cursor: pointer;
   background-color: #111;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
-  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .projectCard:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 28px 56px rgba(0, 0, 0, 0.7);
 }
 
 .imageContainer {
   width: 100%;
   height: 100%;
   position: relative;
-  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
-}
-
-.projectCard:hover .imageContainer {
-  transform: scale(1.04);
+  transform-style: preserve-3d;
 }
 
 .projectImage {
@@ -211,135 +233,146 @@
   height: 100%;
   object-fit: cover;
   display: block;
+  transform-origin: center center;
+  will-change: transform;
 }
 
 .projectCard::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.88) 0%,
+    rgba(0, 0, 0, 0.3) 55%,
+    transparent 100%
+  );
   z-index: 1;
   pointer-events: none;
 }
 
-/* Card Content on top of image */
 .cardContent {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding: 36px;
+  padding: 32px;
+  transform: translateZ(30px);
+  transform-style: preserve-3d;
+  pointer-events: none;
 }
 
 .projectTitle {
   font-family: var(--font-heavy);
-  font-size: 28px;
+  font-size: 26px;
   color: var(--color-white);
   margin-bottom: 4px;
   letter-spacing: -0.5px;
+  transform: translateZ(16px);
 }
 
 .projectTagline {
   font-family: var(--font-book);
-  font-size: 15px;
-  color: rgba(255, 255, 255, 0.7);
-  margin-bottom: 24px;
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 22px;
+  transform: translateZ(8px);
 }
 
 .cardBottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  transform: translateZ(24px);
 }
 
 .categoryPill {
   display: inline-block;
   font-family: var(--font-heavy);
-  font-size: 11px;
-  letter-spacing: 1px;
+  font-size: 10px;
+  letter-spacing: 1.2px;
   color: var(--color-white);
   padding: 6px 14px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 20px;
   text-transform: uppercase;
 }
 
-/* Outlined Arrow Button at Bottom Right */
 .cardArrowBtn {
-  width: 42px;
-  height: 42px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--color-white);
   background: transparent;
-  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  pointer-events: auto;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    transform 0.3s ease;
 }
 
 .projectCard:hover .cardArrowBtn {
   background-color: var(--color-white);
   color: var(--color-black);
   border-color: var(--color-white);
-  transform: rotate(-45deg);
+  transform: rotate(-45deg) translateZ(8px);
 }
 
 .cardArrow {
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
 }
 
-/* Carousel Control Arrow */
+/* ── Slider Next Button ──────────────────────── */
+
 .sliderNextBtn {
   position: absolute;
-  right: -20px;
-  width: 56px;
-  height: 56px;
+  right: -18px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background-color: var(--color-black);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   display: flex;
   justify-content: center;
   align-items: center;
   color: var(--color-white);
   cursor: pointer;
   z-index: 10;
-  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    transform 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
 }
 
 .sliderNextBtn:hover {
   background-color: var(--color-red);
   border-color: var(--color-red);
-  transform: scale(1.08);
+  transform: scale(1.06);
 }
 
 .nextArrow {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
-/* Responsiveness */
+/* ── Responsive ──────────────────────────────── */
+
 @media (max-width: 1024px) {
   .clientSlider {
-    padding: 20px 40px;
+    padding: 20px 32px;
     margin-bottom: 60px;
-    gap: 30px;
+    gap: 28px;
   }
 
   .container {
     flex-direction: column;
     gap: 50px;
-    padding: 0 40px;
+    padding: 0 32px;
     align-items: flex-start;
   }
 
@@ -354,32 +387,33 @@
 
   .sliderWrapper {
     width: 100vw;
-    margin-left: -40px;
+    margin-left: -32px;
   }
 
   .cardsContainer {
-    padding-left: 40px;
-    padding-right: 40px;
+    padding-left: 32px;
+    padding-right: 32px;
   }
 
   .projectCard {
-    flex: 0 0 300px;
-    height: 440px;
+    flex: 0 0 290px;
+    height: 430px;
+    transform: none !important;
   }
 
   .sliderNextBtn {
-    display: none; /* Hide next btn on mobile as native touch scroll is preferred */
+    display: none;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
   .projectsSection {
-    padding: 60px 0 80px;
+    padding: 0 0 80px;
   }
 
   .clientSlider {
     padding: 16px 20px;
-    margin-bottom: 40px;
+    margin-bottom: 36px;
   }
 
   .container {
@@ -393,7 +427,7 @@
   .cardsContainer {
     padding-left: 20px;
     padding-right: 20px;
-    gap: 20px;
+    gap: 16px;
   }
 
   .projectCard {
