@@ -289,18 +289,24 @@ const Services: FC = () => {
     if (!container) return;
 
     const windowHeight = window.innerHeight;
-    
-    // The pinning duration is +=1100% of window height (which is 11 * windowHeight)
     const scrollableDistance = 11 * windowHeight;
-
-    // Services chapters are in range [3/12, 11/12] of the pinned scroll height
     const scrollProgress = 3 / 12 + (index / 8) * (8 / 12);
-    const targetScroll = container.offsetTop + scrollProgress * scrollableDistance + 5;
+    
+    // Find absolute document-relative top coordinate using parent spacer to avoid pin offset shifts
+    const spacer = container.parentElement || container;
+    const rect = spacer.getBoundingClientRect();
+    const absoluteTop = rect.top + window.scrollY;
+    const targetScroll = absoluteTop + scrollProgress * scrollableDistance + 5;
 
-    window.scrollTo({
-      top: targetScroll,
-      behavior: 'smooth',
-    });
+    const lenis = (window as any).lenis;
+    if (lenis) {
+      lenis.scrollTo(targetScroll, { duration: 1.2 });
+    } else {
+      window.scrollTo({
+        top: targetScroll,
+        behavior: 'smooth',
+      });
+    }
   };
 
   return (
