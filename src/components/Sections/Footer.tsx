@@ -6,7 +6,7 @@ const Footer: FC = () => {
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.bgLogo}></div>
+      {/* <div className={styles.bgLogo}></div> */}
       
       <div className="container">
         <div className={styles.ctaContainer}>

@@ -8,8 +8,8 @@ import styles from './Clients.module.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const clientLogos = Array.from(
-  { length: 14 },
-  (_, i) => `/assets/img/clients/${i + 1}.png`,
+  { length: 6 },
+  (_, i) => `/assets/img/clients/color/${i + 1}.png`,
 );
 
 const Clients: FC = () => {
@@ -56,7 +56,7 @@ const Clients: FC = () => {
               <div key={index} className={styles.marqueeItem}>
                 <img
                   src={logoUrl}
-                  alt={`Client Logo ${(index % 14) + 1}`}
+                  alt={`Client Logo ${(index % 6) + 1}`}
                   className={styles.clientLogo}
                 />
               </div>
