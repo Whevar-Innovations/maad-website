@@ -6,9 +6,16 @@ const Footer: FC = () => {
 
   return (
     <footer className={styles.footer}>
-      <div className={styles.bgLogo}></div>
+      {/* <div className={styles.bgLogo}></div> */}
       
       <div className="container">
+        <div className={styles.ctaContainer}>
+          <h2 className={styles.ctaTitle}>HAVE AN IDEA WORTH<br />MAKING?</h2>
+          <a href="mailto:info@maadmccann.com" className={styles.ctaButton}>
+            LET'S WORK TOGETHER
+          </a>
+        </div>
+
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
             © {currentYear} MAADMCCANN. All Rights Reserved.

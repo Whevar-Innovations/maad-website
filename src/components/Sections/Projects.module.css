@@ -1,0 +1,420 @@
+/* ──────────────────────────────────────────────
+   Projects Section
+   ────────────────────────────────────────────── */
+
+.projectsSection {
+  position: relative;
+  z-index: 3;
+  padding: 160px 0;
+  background-color: var(--color-black);
+  overflow: hidden;
+}
+
+/* ── Cinematic transition overlay ────────────── */
+
+.transitionOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 350px;
+  background: linear-gradient(to bottom, var(--color-white) 0%, var(--color-black) 100%);
+  z-index: 10;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+.innerContent {
+  position: relative;
+  z-index: 11;
+}
+
+/* ── Content Layout ──────────────────────────── */
+
+.container {
+  display: flex;
+  gap: 80px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 60px;
+  align-items: center;
+}
+
+.leftCol {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 2;
+}
+
+.tagline {
+  font-family: var(--font-heavy);
+  font-size: 15px;
+  color: var(--color-red);
+  margin-bottom: 20px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--font-heavy);
+  font-size: clamp(36px, 4.5vw, 64px);
+  line-height: 1.12;
+  color: var(--color-white);
+  margin-bottom: 28px;
+  letter-spacing: -1px;
+}
+
+.redText {
+  color: var(--color-red);
+}
+
+.description {
+  font-family: var(--font-book);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.55);
+  margin-bottom: 40px;
+  max-width: 280px;
+}
+
+/* ── VIEW ALL WORK ───────────────────────────── */
+
+.viewAllBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-heavy);
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  color: var(--color-white);
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+}
+
+.viewAllBtn:hover {
+  opacity: 0.85;
+}
+
+.btnArrowWrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: var(--color-red);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.viewAllBtn:hover .btnArrowWrapper {
+  transform: translateX(6px);
+}
+
+.btnArrow {
+  width: 18px;
+  height: 18px;
+  color: var(--color-white);
+}
+
+/* ── Cards Carousel (Scroll Snap) ────────────── */
+
+.sliderWrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0; /* Prevent flex item from expanding beyond its flex layout bounds */
+}
+
+.cardsContainer {
+  display: flex;
+  gap: 28px;
+  overflow-x: auto;
+  padding: 20px 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scroll-padding: 0 40px;
+}
+
+.cardsContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Card Styling ────────────────────────────── */
+
+.projectCard {
+  flex: 0 0 340px;
+  height: 500px;
+  scroll-snap-align: center;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/* Inner card wrapper to isolate CSS hover transitions from GSAP transforms */
+.cardInner {
+  width: 100%;
+  height: 100%;
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background-color: #111;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+              box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, box-shadow;
+}
+
+/* Hover Lift & shadow increase */
+.projectCard:hover .cardInner {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 56px rgba(0, 0, 0, 0.65);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.projectImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+              filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, filter;
+  filter: brightness(0.95);
+}
+
+/* Hover Image Zoom & Brighten */
+.projectCard:hover .projectImage {
+  transform: scale(1.04);
+  filter: brightness(1.08);
+}
+
+.cardInner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9) 0%,
+    rgba(0, 0, 0, 0.35) 55%,
+    transparent 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.cardContent {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 32px;
+  pointer-events: none;
+}
+
+.projectTitle {
+  font-family: var(--font-heavy);
+  font-size: 26px;
+  color: var(--color-white);
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Hover Title Animate Upward */
+.projectCard:hover .projectTitle {
+  transform: translateY(-4px);
+}
+
+.projectTagline {
+  font-family: var(--font-book);
+  font-weight: 400;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.65);
+  margin-bottom: 22px;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Hover Tagline Animate Upward */
+.projectCard:hover .projectTagline {
+  transform: translateY(-4px);
+}
+
+.cardBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.categoryPill {
+  display: inline-block;
+  font-family: var(--font-heavy);
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  color: var(--color-white);
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+.cardArrowBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-white);
+  background: transparent;
+  pointer-events: auto;
+  transition: background-color 0.4s ease, border-color 0.4s ease,
+              color 0.4s ease, transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Hover CTA Icon rotates gently and colors invert */
+.projectCard:hover .cardArrowBtn {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
+  transform: rotate(-45deg);
+}
+
+.cardArrow {
+  width: 15px;
+  height: 15px;
+}
+
+/* ── Navigation Arrows ───────────────────────── */
+
+.sliderArrowBtn {
+  position: absolute;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: var(--color-black);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-white);
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+              transform 0.3s ease, opacity 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.sliderArrowBtn:hover {
+  background-color: var(--color-white);
+  border-color: var(--color-white);
+  color: var(--color-black);
+  transform: scale(1.06);
+}
+
+.sliderPrevBtn {
+  left: -26px;
+}
+
+.sliderNextBtn {
+  right: -26px;
+}
+
+.arrowIcon {
+  width: 20px;
+  height: 20px;
+}
+
+/* ── Responsive ──────────────────────────────── */
+
+@media (max-width: 1024px) {
+  .projectsSection {
+    padding: 100px 0;
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 50px;
+    padding: 0 32px;
+    align-items: flex-start;
+  }
+
+  .leftCol {
+    flex: none;
+    max-width: 100%;
+  }
+
+  .description {
+    max-width: 100%;
+  }
+
+  .sliderWrapper {
+    width: 100vw;
+    margin-left: -32px;
+  }
+
+  .cardsContainer {
+    padding-left: 32px;
+    padding-right: 32px;
+  }
+
+  .projectCard {
+    flex: 0 0 290px;
+    height: 430px;
+  }
+
+  .sliderArrowBtn {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .projectsSection {
+    padding: 80px 0;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .sliderWrapper {
+    margin-left: -20px;
+  }
+
+  .cardsContainer {
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 16px;
+  }
+
+  .projectCard {
+    flex: 0 0 260px;
+    height: 380px;
+  }
+
+  .cardContent {
+    padding: 24px;
+  }
+
+  .projectTitle {
+    font-size: 22px;
+  }
+}

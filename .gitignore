@@ -23,3 +23,5 @@ dist-ssr
 *.sln
 *.sw?
 .playwright-cli/*
+test-results/*
+.agents/mcp_config.json

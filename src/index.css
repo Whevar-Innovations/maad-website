@@ -1,5 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+@font-face {
+  font-family: 'Futura Std';
+  src: url('/assets/fonts/FuturaStdHeavy.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Futura Std';
+  src: url('/assets/fonts/FuturaStdBold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Futura Std';
+  src: url('/assets/fonts/FuturaStdMedium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Futura Std';
+  src: url('/assets/fonts/FuturaStdBook.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Futura Std';
+  src: url('/assets/fonts/FuturaStdLight.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   /* Brand Colors */
   --color-red: #8e191b;
@@ -8,10 +48,10 @@
   --color-gray: #d9d9d9;
 
   /* Typography Fallbacks */
-  --font-heavy: 'Futura Hv BT', 'Futura', 'Trebuchet MS', Arial, sans-serif;
-  --font-book: 'Futura Bk BT', 'Futura', 'Trebuchet MS', Arial, sans-serif;
-  --font-medium: 'Futura Md BT', 'Futura', 'Trebuchet MS', Arial, sans-serif;
-  --font-light: 'Futura Lt BT', 'Futura', 'Trebuchet MS', Arial, sans-serif;
+  --font-heavy: 'Futura Std', 'Futura Hv BT', 'Futura', sans-serif;
+  --font-book: 'Futura Std', 'Futura Bk BT', 'Futura', sans-serif;
+  --font-medium: 'Futura Std', 'Futura Md BT', 'Futura', sans-serif;
+  --font-light: 'Futura Std', 'Futura Lt BT', 'Futura', sans-serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
 
   /* Spacing & Layout */
