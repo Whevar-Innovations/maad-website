@@ -87,14 +87,21 @@ const Hero: FC = () => {
       // Reset child headline to default layout
       gsap.set(headline, { x: 0, y: 0, scale: 1, opacity: 1, letterSpacing: '-2px' });
       
-      // Hide outer videoWrapper (clipPath)
+      // Make outer videoWrapper visible
       gsap.set(videoWrapper, {
-        clipPath: 'inset(0 0 0 100%)',
         visibility: 'visible',
       });
 
-      // Reset inner videoContainer (Stage 2 zoom variables)
-      gsap.set(videoContainer, { x: 0, y: 0, scale: 1, borderRadius: '20px' });
+      // Reset inner videoContainer (Stage 1 clipPath & Stage 2 zoom variables)
+      gsap.set(videoContainer, {
+        x: 0,
+        y: 0,
+        scale: 1,
+        borderRadius: '20px',
+        clipPath: 'inset(0 0 0 100%)',
+
+        visibility: 'visible',
+      });
       gsap.set(video, { scale: 1 });
 
       const charEls = headline.querySelectorAll(`.${styles.char}`);
@@ -107,8 +114,8 @@ const Hero: FC = () => {
       intro.to(charEls, {
         opacity: 1,
         y: 0,
-        duration: 0.5,
-        stagger: 0.05,
+        duration: 0.8,
+        stagger: 0.09,
         ease: 'power3.out',
       });
 
@@ -122,7 +129,7 @@ const Hero: FC = () => {
         ease: 'power4.inOut',
       });
 
-      intro.to(videoWrapper, {
+      intro.to(videoContainer, {
         clipPath: 'inset(0 0 0 0%)',
         duration: 1.4,
         ease: 'power4.inOut',
@@ -216,8 +223,8 @@ const Hero: FC = () => {
       mobileIntro.to(charEls, {
         opacity: 1,
         y: 0,
-        duration: 0.4,
-        stagger: 0.03,
+        duration: 0.6,
+        stagger: 0.06,
         ease: 'power3.out',
       });
 

@@ -59,9 +59,7 @@
   font-style: italic;
 }
 
-/* ── Video Wrappers ───────────────────────────── */
-
-/* Outer Wrapper (handles Stage 1 position & clipPath) */
+/* Outer Wrapper (layout anchor, stays static, does NOT clip) */
 .videoWrapper {
   position: absolute;
   top: 50%;
@@ -70,18 +68,17 @@
   width: 55%;
   height: 520px;
   z-index: 1;
-  visibility: hidden;
-  clip-path: inset(0 0 0 100%);
-  will-change: clip-path;
 }
 
-/* Inner Container (handles Stage 2 scale & translate) */
+/* Inner Container (handles Stage 1 sweep and Stage 2 scale/translate zoom) */
 .videoContainer {
   width: 100%;
   height: 100%;
   border-radius: 20px;
   overflow: hidden;
-  will-change: transform, border-radius;
+  visibility: hidden;
+  clip-path: inset(0 0 0 100%);
+  will-change: transform, clip-path, border-radius;
   transform-origin: center center;
 }
 
