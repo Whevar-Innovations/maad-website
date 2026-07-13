@@ -99,13 +99,12 @@ test.describe('MAAD Website Full Flow E2E Tests', () => {
     await page.evaluate(({ top }) => {
       const target = top + window.innerHeight * 4 + 15;
       if ((window as any).lenis) {
-        (window as any).lenis.scrollTo(target, { immediate: true });
+        (window as any).lenis.scrollTo(target);
       } else {
-        window.scrollTo(0, target);
-        window.dispatchEvent(new Event('scroll'));
+        window.scrollTo({ top: target, behavior: 'smooth' });
       }
     }, { top: servicesTop });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
 
     const layout = page.locator('[class*="layout"]').first();
     await expect(layout).toBeVisible();
@@ -115,19 +114,18 @@ test.describe('MAAD Website Full Flow E2E Tests', () => {
     await expect(timelineNum).toBeVisible();
     await timelineNum.click();
     
-    // Force instantaneous scroll jump matching timeline index 3, with 15px safety buffer
+    // Smooth scroll matching timeline index 3, with 15px safety buffer
     await page.evaluate(({ top }) => {
       const scrollableDistance = 11 * window.innerHeight;
       const scrollProgress = 3 / 12 + (3 / 8) * (8 / 12);
       const targetScroll = top + scrollProgress * scrollableDistance + 15;
       if ((window as any).lenis) {
-        (window as any).lenis.scrollTo(targetScroll, { immediate: true });
+        (window as any).lenis.scrollTo(targetScroll);
       } else {
-        window.scrollTo(0, targetScroll);
-        window.dispatchEvent(new Event('scroll'));
+        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
       }
     }, { top: servicesTop });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
 
     // Verify active index updated to 3 (chapter 4)
     const activeTimelineNum = page.locator('[class*="timelineNumWrapper"][class*="active"] [class*="timelineNum"]').first();
@@ -151,7 +149,7 @@ test.describe('MAAD Website Full Flow E2E Tests', () => {
         windowHeight: window.innerHeight,
       };
     });
-    console.log('imageCol styles debug:', stylesInfo);
+    console.log('imageCol styles debug after scroll:', stylesInfo);
 
     await expect(imageContainer).toBeVisible();
     await imageContainer.hover();
@@ -166,19 +164,18 @@ test.describe('MAAD Website Full Flow E2E Tests', () => {
     const lastTimelineNum = page.locator('[class*="timelineNumWrapper"]').nth(8);
     await lastTimelineNum.click();
     
-    // Force instantaneous scroll jump matching SBCC snap position (index 8)
+    // Smooth scroll matching SBCC snap position (index 8)
     await page.evaluate(({ top }) => {
       const scrollableDistance = 11 * window.innerHeight;
       const scrollProgress = 3 / 12 + (8 / 8) * (8 / 12);
       const targetScroll = top + scrollProgress * scrollableDistance + 15;
       if ((window as any).lenis) {
-        (window as any).lenis.scrollTo(targetScroll, { immediate: true });
+        (window as any).lenis.scrollTo(targetScroll);
       } else {
-        window.scrollTo(0, targetScroll);
-        window.dispatchEvent(new Event('scroll'));
+        window.scrollTo({ top: targetScroll, behavior: 'smooth' });
       }
     }, { top: servicesTop });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
 
     // Verify SBCC is visible
     const activeTitle = page.locator('[class*="titleItem"][class*="active"]').first();
@@ -189,13 +186,12 @@ test.describe('MAAD Website Full Flow E2E Tests', () => {
     await page.evaluate(({ top }) => {
       const target = top + window.innerHeight * 11.8;
       if ((window as any).lenis) {
-        (window as any).lenis.scrollTo(target, { immediate: true });
+        (window as any).lenis.scrollTo(target);
       } else {
-        window.scrollTo(0, target);
-        window.dispatchEvent(new Event('scroll'));
+        window.scrollTo({ top: target, behavior: 'smooth' });
       }
     }, { top: servicesTop });
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(3000);
 
     // 6. Reach Footer Section
     const footer = page.locator('footer[class*="footer"]').first();
@@ -214,6 +210,10 @@ test.describe('MAAD Website Full Flow E2E Tests', () => {
     // 1. Visit Home Page
     await page.goto('/');
     await page.waitForTimeout(3000);
+
+    // Verify hero video container is visible on mobile
+    const mobileVideo = page.locator('#hero-video-container');
+    await expect(mobileVideo).toBeVisible();
 
     // 2. Scroll to Services Section
     const services = page.locator('#services');
