@@ -57,6 +57,7 @@ const Hero: FC = () => {
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const whiteOverlayRef = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     const section = sectionRef.current;
@@ -99,10 +100,10 @@ const Hero: FC = () => {
         scale: 1,
         borderRadius: '20px',
         clipPath: 'inset(0 0 0 100%)',
-
         visibility: 'visible',
       });
       gsap.set(video, { scale: 1 });
+      gsap.set(whiteOverlayRef.current, { opacity: 0 });
 
       const charEls = headline.querySelectorAll(`.${styles.char}`);
       gsap.set(charEls, { opacity: 0, y: 14 });
@@ -160,13 +161,10 @@ const Hero: FC = () => {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=120%',
+          end: '+=180%',
           pin: true,
           scrub: 0.8,
           anticipatePin: 1,
-          onUpdate: (self) => {
-            console.log("SCROLLTRIGGER UPDATE - progress:", self.progress, "scroll:", self.scroll());
-          }
         },
       });
 
@@ -199,6 +197,19 @@ const Hero: FC = () => {
         transformOrigin: 'left bottom',
       }, 0);
 
+      // Cinematic Fade to White at the end of the scroll
+      scrollTl.to(video, {
+        filter: 'brightness(0.12) saturate(0.1)',
+        duration: 0.6,
+        ease: 'power1.inOut',
+      }, 1);
+
+      scrollTl.to(whiteOverlayRef.current, {
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power1.inOut',
+      }, 1);
+
       return () => {
         ScrollTrigger.getAll().forEach((t) => t.kill());
       };
@@ -216,6 +227,7 @@ const Hero: FC = () => {
       const charEls = headline.querySelectorAll(`.${styles.char}`);
       gsap.set(charEls, { opacity: 0, y: 10 });
       gsap.set(videoContainer, { opacity: 0, y: 20 });
+      gsap.set(whiteOverlayRef.current, { opacity: 0 });
 
       // Lighter, touch-friendly intro timeline
       const mobileIntro = gsap.timeline();
@@ -262,6 +274,12 @@ const Hero: FC = () => {
         ease: 'none',
       }, 0);
 
+      mobileScroll.to(whiteOverlayRef.current, {
+        opacity: 1,
+        duration: 0.6,
+        ease: 'power1.inOut',
+      }, 0.4);
+
       return () => {
         ScrollTrigger.getAll().forEach((t) => t.kill());
       };
@@ -296,9 +314,14 @@ const Hero: FC = () => {
         {/* Video Outer Wrapper */}
         <div ref={videoWrapperRef} className={styles.videoWrapper}>
           {/* Inner Video Zoom Container */}
-          <div ref={videoContainerRef} className={styles.videoContainer}>
+          <div
+            ref={videoContainerRef}
+            id="hero-video-container"
+            className={styles.videoContainer}
+          >
             <video
               ref={videoRef}
+              id="hero-video"
               className={styles.video}
               src="/assets/showreel/MAAD SHOWREEL.mp4"
               autoPlay
@@ -308,6 +331,9 @@ const Hero: FC = () => {
             />
           </div>
         </div>
+
+        {/* Cinematic White transition cover */}
+        <div ref={whiteOverlayRef} className={styles.whiteOverlay} />
       </div>
     </section>
   );

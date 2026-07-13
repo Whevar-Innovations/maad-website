@@ -91,6 +91,16 @@
   will-change: transform;
 }
 
+/* .whiteOverlay {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-white);
+  z-index: 2; 
+  opacity: 0.05;
+  pointer-events: none;
+  will-change: opacity;
+} */
+
 /* ── MOBILE / TABLET ──────────────────────────── */
 
 @media (max-width: 1024px) {

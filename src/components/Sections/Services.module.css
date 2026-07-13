@@ -1,5 +1,5 @@
 .servicesSection {
-  background-color: var(--color-white);
+  background: linear-gradient(to bottom, var(--color-black) 0%, var(--color-white) 350px, var(--color-white) 100%);
   position: relative;
   z-index: 4;
   overflow: visible;
