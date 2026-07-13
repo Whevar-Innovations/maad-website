@@ -1,0 +1,411 @@
+.projectsSection {
+  padding: 100px 0 140px;
+  background-color: var(--color-black);
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Trusted By Client Logos Slider Row */
+.clientSlider {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding: 24px 60px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: 80px;
+  overflow: hidden;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+.trustedLabel {
+  font-family: var(--font-heavy);
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.marqueeTrack {
+  display: flex;
+  align-items: center;
+  gap: 80px;
+  width: max-content;
+  animation: scrollLogos 120s linear infinite;
+}
+
+.marqueeItem {
+  flex: 0 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+}
+
+.clientLogo {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.7; /* Clearer visibility matching screenshot */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.clientLogo:hover {
+  opacity: 1;
+  transform: scale(1.08);
+}
+
+@keyframes scrollLogos {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-33.3333%);
+  }
+}
+
+/* Content Layout */
+.container {
+  display: flex;
+  gap: 80px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 60px;
+  align-items: center;
+}
+
+.leftCol {
+  flex: 0 0 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  z-index: 2;
+}
+
+.tagline {
+  font-family: var(--font-heavy);
+  font-size: 16px;
+  color: var(--color-red);
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.title {
+  font-family: var(--font-heavy);
+  font-size: clamp(36px, 4.5vw, 64px);
+  line-height: 1.15;
+  color: var(--color-white);
+  margin-bottom: 30px;
+  letter-spacing: -1px;
+}
+
+.redText {
+  color: var(--color-red);
+}
+
+.description {
+  font-family: var(--font-book);
+  font-size: 16px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 40px;
+  max-width: 280px;
+}
+
+/* Red "VIEW ALL WORK" Circle Arrow Button */
+.viewAllBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-heavy);
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--color-white);
+  text-transform: uppercase;
+  transition: opacity 0.3s ease;
+}
+
+.viewAllBtn:hover {
+  opacity: 0.9;
+}
+
+.btnArrowWrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--color-red);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.viewAllBtn:hover .btnArrowWrapper {
+  transform: translateX(6px);
+}
+
+.btnArrow {
+  width: 20px;
+  height: 20px;
+  color: var(--color-white);
+}
+
+/* Cards Carousel */
+.sliderWrapper {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.cardsContainer {
+  display: flex;
+  gap: 30px;
+  overflow-x: auto;
+  padding: 10px 0 20px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  width: 100%;
+}
+
+.cardsContainer::-webkit-scrollbar {
+  display: none;
+}
+
+/* Cards Styling */
+.projectCard {
+  flex: 0 0 345px;
+  height: 505px;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  background-color: #111;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.projectCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
+}
+
+.imageContainer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.projectCard:hover .imageContainer {
+  transform: scale(1.04);
+}
+
+.projectImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.projectCard::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 60%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Card Content on top of image */
+.cardContent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 36px;
+}
+
+.projectTitle {
+  font-family: var(--font-heavy);
+  font-size: 28px;
+  color: var(--color-white);
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+
+.projectTagline {
+  font-family: var(--font-book);
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 24px;
+}
+
+.cardBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.categoryPill {
+  display: inline-block;
+  font-family: var(--font-heavy);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--color-white);
+  padding: 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  text-transform: uppercase;
+}
+
+/* Outlined Arrow Button at Bottom Right */
+.cardArrowBtn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-white);
+  background: transparent;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+
+.projectCard:hover .cardArrowBtn {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
+  transform: rotate(-45deg);
+}
+
+.cardArrow {
+  width: 16px;
+  height: 16px;
+}
+
+/* Carousel Control Arrow */
+.sliderNextBtn {
+  position: absolute;
+  right: -20px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: var(--color-black);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-white);
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.sliderNextBtn:hover {
+  background-color: var(--color-red);
+  border-color: var(--color-red);
+  transform: scale(1.08);
+}
+
+.nextArrow {
+  width: 22px;
+  height: 22px;
+}
+
+/* Responsiveness */
+@media (max-width: 1024px) {
+  .clientSlider {
+    padding: 20px 40px;
+    margin-bottom: 60px;
+    gap: 30px;
+  }
+
+  .container {
+    flex-direction: column;
+    gap: 50px;
+    padding: 0 40px;
+    align-items: flex-start;
+  }
+
+  .leftCol {
+    flex: none;
+    max-width: 100%;
+  }
+
+  .description {
+    max-width: 100%;
+  }
+
+  .sliderWrapper {
+    width: 100vw;
+    margin-left: -40px;
+  }
+
+  .cardsContainer {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  .projectCard {
+    flex: 0 0 300px;
+    height: 440px;
+  }
+
+  .sliderNextBtn {
+    display: none; /* Hide next btn on mobile as native touch scroll is preferred */
+  }
+}
+
+@media (max-width: 768px) {
+  .projectsSection {
+    padding: 60px 0 80px;
+  }
+
+  .clientSlider {
+    padding: 16px 20px;
+    margin-bottom: 40px;
+  }
+
+  .container {
+    padding: 0 20px;
+  }
+
+  .sliderWrapper {
+    margin-left: -20px;
+  }
+
+  .cardsContainer {
+    padding-left: 20px;
+    padding-right: 20px;
+    gap: 20px;
+  }
+
+  .projectCard {
+    flex: 0 0 260px;
+    height: 380px;
+  }
+
+  .cardContent {
+    padding: 24px;
+  }
+
+  .projectTitle {
+    font-size: 22px;
+  }
+}
