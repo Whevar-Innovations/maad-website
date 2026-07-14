@@ -1,24 +1,26 @@
 .footer {
-  padding: 100px 0 40px;
-  /* background: linear-gradient(to bottom, var(--color-white) 0%, var(--color-black) 350px, var(--color-black) 100%); */
+  padding: 140px 0 60px;
+  background-color: var(--color-black);
   overflow: hidden;
   position: relative;
   z-index: 5;
 }
 
-.bgLogo {
+/* Giant Outline Watermark */
+.giantWord {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  bottom: -4vw;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-heavy);
+  font-size: 25vw;
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.03);
   pointer-events: none;
-  opacity: 0.09;
   z-index: 0;
-  background-image: url('/assets/img/MAAD-LOGO-02.png');
-  background-size: 110% auto;
-  background-position: center;
-  background-repeat: no-repeat;
+  user-select: none;
+  white-space: nowrap;
 }
 
 .bottomBar {
@@ -28,19 +30,35 @@
   justify-content: space-between;
   align-items: center;
   padding-top: 40px;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
   font-family: var(--font-book);
   font-size: 14px;
 }
 
-.copyright {
-  color: var(--color-white);
+.infoCol {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   flex: 1;
+  text-align: left;
+}
+
+.location {
+  font-family: var(--font-heavy);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  color: var(--color-red);
+}
+
+.copyright {
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 13px;
 }
 
 .socials {
   display: flex;
-  gap: 20px;
+  gap: 24px;
   flex: 1;
   justify-content: center;
 }
@@ -49,8 +67,10 @@
   color: var(--color-white);
   font-size: 12px;
   text-transform: uppercase;
-  transition: color 0.3s ease;
-  opacity: 0.6;
+  letter-spacing: 1px;
+  transition: color 0.3s ease, opacity 0.3s ease;
+  opacity: 0.55;
+  font-family: var(--font-medium);
 }
 
 .socials a:hover {
@@ -66,7 +86,7 @@
 }
 
 .legalLinks a {
-  color: var(--color-white);
+  color: rgba(255, 255, 255, 0.55);
   transition: color 0.3s ease;
 }
 
@@ -81,6 +101,11 @@
     text-align: center;
   }
   
+  .infoCol {
+    align-items: center;
+    text-align: center;
+  }
+  
   .legalLinks, .socials {
     justify-content: center;
   }
@@ -91,50 +116,105 @@
   position: relative;
   z-index: 1;
   text-align: center;
-  padding: 80px 0 100px;
+  padding: 40px 0 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 32px;
 }
 
+.tagline {
+  font-family: var(--font-heavy);
+  font-size: 15px;
+  color: var(--color-red);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+}
+
 .ctaTitle {
   font-family: var(--font-heavy);
-  font-size: clamp(32px, 5vw, 64px);
-  line-height: 1.2;
+  font-size: clamp(32px, 5vw, 76px);
+  line-height: 1.05;
   color: var(--color-white);
-  letter-spacing: -1px;
+  letter-spacing: -2px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.outlineText {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-white);
+}
+
+.highlightRed {
+  color: var(--color-red);
 }
 
 .ctaButton {
-  display: inline-block;
-  background-color: var(--color-white);
-  color: var(--color-black);
-  padding: 16px 36px;
-  border-radius: 40px;
+  display: inline-flex;
+  align-items: center;
+  gap: 20px;
   font-family: var(--font-heavy);
-  font-size: 14px;
-  letter-spacing: 1px;
+  font-size: clamp(16px, 2.5vw, 28px);
+  color: var(--color-white);
   text-transform: uppercase;
-  transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s ease, color 0.3s ease;
-  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+  letter-spacing: 1px;
+  transition: color 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 15px;
 }
 
 .ctaButton:hover {
-  transform: translateY(-4px);
+  color: var(--color-red);
+}
+
+.arrowCircle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ctaButton:hover .arrowCircle {
   background-color: var(--color-red);
+  border-color: var(--color-red);
+  transform: scale(1.12) rotate(-45deg);
+}
+
+.arrowIcon {
+  width: 20px;
+  height: 20px;
   color: var(--color-white);
-  opacity: 1;
+  transition: transform 0.4s ease;
 }
 
 @media (max-width: 768px) {
   .ctaContainer {
-    padding: 60px 0 80px;
+    padding: 20px 0 80px;
     gap: 24px;
   }
   
-  .ctaButton {
-    padding: 14px 28px;
-    font-size: 12px;
+  .tagline {
+    font-size: 13px;
+  }
+  
+  .arrowCircle {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .arrowIcon {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .giantWord {
+    font-size: 28vw;
+    bottom: -6vw;
   }
 }

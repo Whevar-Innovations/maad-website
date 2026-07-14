@@ -10,6 +10,7 @@ function App() {
   return (
     <Layout>
       <Hero />
+      <div className="hero-scroll-spacer" />
       <Clients />
       <Projects />
       <Services />

@@ -29,7 +29,7 @@ test.describe('MAAD Website Full Flow E2E Tests', () => {
     
     const clientsLabel = page.locator('[class*="clientsSection"] [class*="label"]').first();
     await expect(clientsLabel).toBeVisible();
-    await expect(clientsLabel).toContainText('TRUSTED PARTNERSHIPS');
+    await expect(clientsLabel).toContainText('BRANDS THAT TRUST OUR VISION');
 
     // Verify client partner logo images fetch successfully
     const clientLogos = page.locator('#partners img');
@@ -85,7 +85,9 @@ test.describe('MAAD Website Full Flow E2E Tests', () => {
     const servicesTop = await page.evaluate(() => {
       const services = document.querySelector('#services');
       if (services) {
-        const spacer = services.parentElement || services;
+        const parent = services.parentElement;
+        const isSpacer = parent && (parent.classList.contains('pin-spacer') || parent.className.includes('pin-spacer'));
+        const spacer = isSpacer ? parent : services;
         const rect = spacer.getBoundingClientRect();
         return rect.top + window.scrollY;
       }

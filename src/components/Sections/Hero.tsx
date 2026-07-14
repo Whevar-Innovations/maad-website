@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import type { FC } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
@@ -57,7 +57,22 @@ const Hero: FC = () => {
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const whiteOverlayRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const videoEl = videoRef.current;
+    if (!videoEl) return;
+
+    const handleCanPlay = () => {
+      window.dispatchEvent(new CustomEvent('hero-video-ready'));
+    };
+
+    if (videoEl.readyState >= 3) {
+      handleCanPlay();
+    } else {
+      videoEl.addEventListener('canplay', handleCanPlay);
+      return () => videoEl.removeEventListener('canplay', handleCanPlay);
+    }
+  }, []);
 
   useGSAP(() => {
     const section = sectionRef.current;
@@ -103,7 +118,7 @@ const Hero: FC = () => {
         visibility: 'visible',
       });
       gsap.set(video, { scale: 1 });
-      gsap.set(whiteOverlayRef.current, { opacity: 0 });
+      // gsap.set(whiteOverlayRef.current, { opacity: 0 });
 
       const charEls = headline.querySelectorAll(`.${styles.char}`);
       gsap.set(charEls, { opacity: 0, y: 14 });
@@ -163,6 +178,7 @@ const Hero: FC = () => {
           start: 'top top',
           end: '+=180%',
           pin: true,
+          pinSpacing: false,
           scrub: 0.8,
           anticipatePin: 1,
         },
@@ -197,18 +213,12 @@ const Hero: FC = () => {
         transformOrigin: 'left bottom',
       }, 0);
 
-      // Cinematic Fade to White at the end of the scroll
-      scrollTl.to(video, {
-        filter: 'brightness(0.12) saturate(0.1)',
-        duration: 0.6,
-        ease: 'power1.inOut',
-      }, 1);
+      // Keep video fully visible and zooming behind the slide-up clients section
+      gsap.set(videoContainer, { opacity: 1 });
 
-      scrollTl.to(whiteOverlayRef.current, {
-        opacity: 1,
-        duration: 0.6,
-        ease: 'power1.inOut',
-      }, 1);
+      // Extend the timeline to match the 1.8 viewport scroll range.
+      // This keeps the zoomed video static from progress 1.0 to 1.8 while the Clients section slides up.
+      scrollTl.to({}, { duration: 0.8 });
 
       return () => {
         ScrollTrigger.getAll().forEach((t) => t.kill());
@@ -223,11 +233,11 @@ const Hero: FC = () => {
       gsap.set(videoWrapper, { clearProps: 'all' });
       gsap.set(videoContainer, { clearProps: 'all' });
       gsap.set(video, { clearProps: 'all' });
+      gsap.set(section, { clearProps: 'all' });
 
       const charEls = headline.querySelectorAll(`.${styles.char}`);
       gsap.set(charEls, { opacity: 0, y: 10 });
       gsap.set(videoContainer, { opacity: 0, y: 20 });
-      gsap.set(whiteOverlayRef.current, { opacity: 0 });
 
       // Lighter, touch-friendly intro timeline
       const mobileIntro = gsap.timeline();
@@ -254,8 +264,9 @@ const Hero: FC = () => {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: '+=60%',
+          end: '+=120%',
           pin: true,
+          pinSpacing: false,
           scrub: 0.5,
         },
       });
@@ -270,15 +281,14 @@ const Hero: FC = () => {
 
       mobileScroll.to(videoContainer, {
         scale: 1.15,
-        duration: 1,
+        duration: 0.3,
         ease: 'none',
       }, 0);
 
-      mobileScroll.to(whiteOverlayRef.current, {
-        opacity: 1,
-        duration: 0.6,
-        ease: 'power1.inOut',
-      }, 0.4);
+      // Extend the mobile timeline to match the 1.2 viewport scroll range
+      mobileScroll.to({}, { duration: 0.9 });
+
+      gsap.set(videoContainer, { opacity: 1 });
 
       return () => {
         ScrollTrigger.getAll().forEach((t) => t.kill());
@@ -323,17 +333,18 @@ const Hero: FC = () => {
               ref={videoRef}
               id="hero-video"
               className={styles.video}
-              src="/assets/showreel/MAAD SHOWREEL.mp4"
+              src="/assets/showreel/MAAD_SHOWREEL_optimized.mp4"
+              poster="/assets/showreel/MAAD_SHOWREEL_poster.jpg"
               autoPlay
               muted
               loop
               playsInline
+              preload="auto"
             />
           </div>
         </div>
 
-        {/* Cinematic White transition cover */}
-        <div ref={whiteOverlayRef} className={styles.whiteOverlay} />
+
       </div>
     </section>
   );
