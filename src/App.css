@@ -1,1 +1,14 @@
 /* App-wide scoped styles can go here */
+
+/* Hero Scroll Transition Spacer */
+.hero-scroll-spacer {
+  height: 80vh;
+  background-color: transparent;
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .hero-scroll-spacer {
+    height: 20vh;
+  }
+}

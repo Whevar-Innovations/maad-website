@@ -45,9 +45,9 @@ const Clients: FC = () => {
   return (
     <section ref={sectionRef} className={styles.clientsSection} id="partners">
       <div ref={contentRef} className={styles.container}>
-        <span className={styles.label}>TRUSTED PARTNERSHIPS</span>
+        <span className={styles.label}>BRANDS THAT TRUST OUR VISION</span>
         <h2 className={styles.headline}>
-          Working with brands that put people first.
+          Designing for brands that value precision.
         </h2>
         
         <div className={styles.marqueeWrapper}>

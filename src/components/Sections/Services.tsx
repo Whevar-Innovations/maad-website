@@ -116,42 +116,35 @@ const subtleBgGradients = [
 const Services: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const stickyWrapperRef = useRef<HTMLDivElement>(null);
-  const introContainerRef = useRef<HTMLDivElement>(null);
   const mainLayoutRef = useRef<HTMLDivElement>(null);
   const progressBarRef = useRef<HTMLDivElement>(null);
 
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isIntroActive, setIsIntroActive] = useState(true);
   const [isOutroActive, setIsOutroActive] = useState(false);
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
 
   const getBackgroundStyle = () => {
     if (isOutroActive) return '#000000';
-    if (isIntroActive) return 'radial-gradient(circle at center, #ffffff 0%, #f7f5f5 100%)';
     return subtleBgGradients[activeIndex];
   };
 
   useGSAP(() => {
     const container = containerRef.current;
     const stickyWrapper = stickyWrapperRef.current;
-    const introContainer = introContainerRef.current;
     const mainLayout = mainLayoutRef.current;
     const progressBar = progressBarRef.current;
 
-    if (!container || !stickyWrapper || !introContainer || !mainLayout || !progressBar) return;
+    if (!container || !stickyWrapper || !mainLayout || !progressBar) return;
 
     const mm = gsap.matchMedia();
 
     mm.add('(min-width: 1024px)', () => {
-      const introSlides = gsap.utils.toArray<HTMLElement>(`.${styles.introSlide}`);
       const titles = gsap.utils.toArray<HTMLElement>(`.${styles.titleItem}`);
       const images = gsap.utils.toArray<HTMLElement>(`.${styles.imageItem}`);
       const details = gsap.utils.toArray<HTMLElement>(`.${styles.detailItem}`);
 
       // --- INITIAL STATES ---
-      gsap.set(introSlides.slice(1), { opacity: 0, y: 30, scale: 0.95 });
-      gsap.set(introSlides[0], { opacity: 1, y: 0, scale: 1 });
-      gsap.set(mainLayout, { opacity: 0, visibility: 'hidden' });
+      gsap.set(mainLayout, { opacity: 1, visibility: 'visible' });
 
       gsap.set(titles.slice(1), { yPercent: 100, opacity: 0 });
       gsap.set(images.slice(1), { yPercent: 15, scale: 0.94, opacity: 0 });
@@ -162,16 +155,16 @@ const Services: FC = () => {
       gsap.set(details[0], { yPercent: 0, opacity: 1 });
 
       // --- TIMELINE SETUP ---
-      // We pin the section for 12 scroll-steps (3 intro slides + 9 service chapters)
+      // We pin the sticky wrapper for 10 scroll-steps (9 service chapters + 1 outro)
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: container,
+          trigger: stickyWrapper,
           start: 'top top',
-          end: '+=1100%',
+          end: '+=1000%',
           scrub: 0.8,
           pin: true,
           snap: {
-            snapTo: [0, 1 / 12, 2 / 12, 3 / 12, 4 / 12, 5 / 12, 6 / 12, 7 / 12, 8 / 12, 9 / 12, 10 / 12, 11 / 12, 1],
+            snapTo: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
             duration: { min: 0.15, max: 0.3 },
             delay: 0.05,
             ease: 'power2.out',
@@ -179,47 +172,21 @@ const Services: FC = () => {
           onUpdate: (self) => {
             const progress = self.progress;
             
-            if (progress < 3 / 12) {
-              setIsIntroActive(true);
-              setIsOutroActive(false);
-            } else if (progress > 11 / 12) {
-              setIsIntroActive(false);
+            if (progress > 0.85) {
               setIsOutroActive(true);
               setActiveIndex(8);
             } else {
-              setIsIntroActive(false);
               setIsOutroActive(false);
-              // Normalize progress range [3/12, 11/12] to range [0, 8]
-              const normalized = (progress - 3 / 12) / (8 / 12);
-              const activeIdx = Math.min(Math.floor(normalized * 9), 8);
+              const activeIdx = Math.min(Math.round(progress * 10), 8);
               setActiveIndex(activeIdx);
             }
           },
         },
       });
 
-      // --- STAGE A: PHILOSOPHY INTRO TRANSITIONS ---
-      // Slide 0 ➔ Slide 1
-      tl.to(introSlides[0], { opacity: 0, y: -30, scale: 0.95, duration: 1 }, 0)
-        .to(introSlides[1], { opacity: 1, y: 0, scale: 1, duration: 1 }, 0.3);
-
-      // Slide 1 ➔ Slide 2
-      tl.to(introSlides[1], { opacity: 0, y: -30, scale: 0.95, duration: 1 }, 1)
-        .to(introSlides[2], { opacity: 1, y: 0, scale: 1, duration: 1 }, 1.3);
-
-      // Slide 2 ➔ Reveal Main Layout
-      tl.to(introSlides[2], { opacity: 0, y: -30, scale: 0.95, duration: 1 }, 2)
-        .to(introContainer, { opacity: 0, duration: 0.8 }, 2)
-        .fromTo(
-          mainLayout,
-          { opacity: 0, y: 40 },
-          { opacity: 1, y: 0, visibility: 'visible', duration: 1.2 },
-          2.2,
-        );
-
       // --- STAGE B: OUTCOMES CHAPTER TRANSITIONS ---
       for (let i = 1; i < 9; i++) {
-        const time = i + 2; // timeline triggers: 3, 4, 5, 6, 7, 8, 9, 10
+        const time = i; // timeline triggers: 1, 2, 3, 4, 5, 6, 7, 8
 
         // Outgoing elements (i - 1)
         tl.to(titles[i - 1], { yPercent: -80, opacity: 0, duration: 1, ease: 'power2.inOut' }, time)
@@ -266,7 +233,7 @@ const Services: FC = () => {
       }
 
       // --- STAGE C: FADE TO BLACK OUTRO ---
-      // Fade out elements in the final scroll block (time 11 ➔ 12)
+      // Fade out elements in the final scroll block (time 9 ➔ 10)
       tl.to(
         [
           progressBar,
@@ -277,7 +244,7 @@ const Services: FC = () => {
           `.${styles.imageCol}`
         ],
         { opacity: 0, duration: 0.8 },
-        11
+        9
       );
     });
 
@@ -285,20 +252,24 @@ const Services: FC = () => {
   }, { scope: containerRef });
 
   const handleNavClick = (index: number) => {
-    const container = containerRef.current;
-    if (!container) return;
+    const stickyWrapper = stickyWrapperRef.current;
+    if (!stickyWrapper) return;
 
     const windowHeight = window.innerHeight;
-    const scrollableDistance = 11 * windowHeight;
-    const scrollProgress = 3 / 12 + (index / 8) * (8 / 12);
+    const scrollableDistance = 10 * windowHeight;
+    const scrollProgress = index / 10;
     
     // Find absolute document-relative top coordinate using parent spacer to avoid pin offset shifts
-    const spacer = container.parentElement || container;
+    const spacer = stickyWrapper.parentElement || stickyWrapper;
     const rect = spacer.getBoundingClientRect();
     const absoluteTop = rect.top + window.scrollY;
     const targetScroll = absoluteTop + scrollProgress * scrollableDistance + 5;
 
-    const lenis = (window as any).lenis;
+    const lenis = (window as unknown as {
+      lenis?: {
+        scrollTo: (target: number, options?: { duration?: number }) => void;
+      };
+    }).lenis;
     if (lenis) {
       lenis.scrollTo(targetScroll, { duration: 1.2 });
     } else {
@@ -311,6 +282,28 @@ const Services: FC = () => {
 
   return (
     <section ref={containerRef} className={styles.servicesSection} id="services">
+      {/* Philosophy Intro Static Typography Block */}
+      <div className={styles.introStaticContainer}>
+        <div className={styles.introStaticWrapper}>
+          <div className={styles.introLine1}>
+            <div className={styles.smallLabel}>Our Philosophy</div>
+            <h2 className={styles.introTextMain}>
+              We don&apos;t begin <span className={styles.introTextOutline}>with campaigns.</span>
+            </h2>
+          </div>
+          <div className={styles.introLine2}>
+            <h2 className={styles.introTextMain}>
+              We begin with <span className={styles.introTextRed}>people.</span>
+            </h2>
+          </div>
+          <div className={styles.introLine3}>
+            <h2 className={styles.introTextMain}>
+              Everything else <span className={styles.introTextMain}>follows.</span>
+            </h2>
+          </div>
+        </div>
+      </div>
+
       {/* DESKTOP GUIDED EXPERIENCE */}
       <div
         ref={stickyWrapperRef}
@@ -318,25 +311,7 @@ const Services: FC = () => {
         style={{ background: getBackgroundStyle() }}
       >
         <div className={styles.sectionHeader}>
-          <span>02</span>
-          <div className={styles.line}></div>
           <span>How We Create Impact</span>
-        </div>
-
-        {/* Philosophy Intro Slides */}
-        <div
-          ref={introContainerRef}
-          className={`${styles.introContainer} ${isIntroActive ? styles.active : ''}`}
-        >
-          <div className={styles.introSlide}>
-            <h2>We don't begin with campaigns.</h2>
-          </div>
-          <div className={styles.introSlide}>
-            <h2>We begin with people.</h2>
-          </div>
-          <div className={styles.introSlide}>
-            <h2>Everything else follows.</h2>
-          </div>
         </div>
 
         {/* Editorial Content Layout */}
@@ -419,13 +394,6 @@ const Services: FC = () => {
       {/* MOBILE/TABLET INTERACTIVE CAROUSEL */}
       <div className={styles.mobileVersion}>
         <h2 className={styles.sectionTitle}>How We Create Impact</h2>
-        
-        {/* Short philosophy statements stacked at the top of mobile list */}
-        <div className={styles.mobilePhilosophyBlock}>
-          <p>We don't begin with campaigns.</p>
-          <p className={styles.redHighlight}>We begin with people.</p>
-          <p>Everything else follows.</p>
-        </div>
 
         <div className={styles.accordionContainer}>
           {servicesData.map((service, i) => {
