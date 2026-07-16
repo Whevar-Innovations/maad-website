@@ -56,23 +56,46 @@ const Hero: FC = () => {
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const videoWrapperRef = useRef<HTMLDivElement>(null);
   const videoContainerRef = useRef<HTMLDivElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement | HTMLIFrameElement>(null);
+
+  const videoSrc = "https://www.youtube.com/watch?v=JNnXESzuMMQ";
+  const isYouTube = videoSrc.includes("youtube.com") || videoSrc.includes("youtu.be");
+
+  const getYouTubeEmbedUrl = (url: string) => {
+    try {
+      const urlObj = new URL(url);
+      const videoId = urlObj.hostname.includes("youtu.be") 
+        ? urlObj.pathname.slice(1) 
+        : urlObj.searchParams.get("v");
+      return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&playlist=${videoId}`;
+    } catch {
+      return url;
+    }
+  };
 
   useEffect(() => {
     const videoEl = videoRef.current;
     if (!videoEl) return;
 
-    const handleCanPlay = () => {
-      window.dispatchEvent(new CustomEvent('hero-video-ready'));
-    };
-
-    if (videoEl.readyState >= 3) {
-      handleCanPlay();
+    if (isYouTube) {
+      const handleLoad = () => {
+        window.dispatchEvent(new CustomEvent('hero-video-ready'));
+      };
+      videoEl.addEventListener('load', handleLoad);
+      return () => videoEl.removeEventListener('load', handleLoad);
     } else {
-      videoEl.addEventListener('canplay', handleCanPlay);
-      return () => videoEl.removeEventListener('canplay', handleCanPlay);
+      const handleCanPlay = () => {
+        window.dispatchEvent(new CustomEvent('hero-video-ready'));
+      };
+
+      if ((videoEl as HTMLVideoElement).readyState >= 3) {
+        handleCanPlay();
+      } else {
+        videoEl.addEventListener('canplay', handleCanPlay);
+        return () => videoEl.removeEventListener('canplay', handleCanPlay);
+      }
     }
-  }, []);
+  }, [isYouTube]);
 
   useGSAP(() => {
     const section = sectionRef.current;
@@ -329,18 +352,31 @@ const Hero: FC = () => {
             id="hero-video-container"
             className={styles.videoContainer}
           >
-            <video
-              ref={videoRef}
-              id="hero-video"
-              className={styles.video}
-              src="/assets/showreel/MAAD_SHOWREEL_optimized.mp4"
-              poster="/assets/showreel/MAAD_SHOWREEL_poster.jpg"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-            />
+            {isYouTube ? (
+              <iframe
+                ref={videoRef as any}
+                id="hero-video"
+                className={styles.video}
+                src={getYouTubeEmbedUrl(videoSrc)}
+                title="Showreel"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              />
+            ) : (
+              <video
+                ref={videoRef as any}
+                id="hero-video"
+                className={styles.video}
+                src={videoSrc}
+                poster="/assets/showreel/MAAD_SHOWREEL_poster.jpg"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+              />
+            )}
           </div>
         </div>
 
